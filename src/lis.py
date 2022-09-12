@@ -4,6 +4,7 @@
 # They *should* be comparable, and it *is* possible to make such
 # an annotation, but it is tricky, and I don't want to confuse you
 # more than strictly necessary.
+from pickle import TRUE
 from typing import Sequence, Any
 
 
@@ -46,7 +47,23 @@ def longest_increasing_substring(x: Sequence[Any]) -> tuple[int, int]:
     >>> longest_increasing_substring([12, 45, 32, 65, 78, 23, 35, 45, 57])
     (5, 9)
     """
-    # The leftmost empty string is our first best bet
-    best = (0, 0)
+    y=0
+
+    for i in range(1,len(x)):
+        list1=[]
+        if is_increasing([x[i-1],x[i]])==True:
+            list1.append(i-1)
+            a=i
+            while a!=len(x) and is_increasing([x[a-1],x[a]])==True:
+                a+=1
+            list1.append(a)
+            if substring_length(list1)>y:
+                y=substring_length(list1)
+                best=(list1[0],list1[1])
+
+
     # FIXME: explore the other possibilities
     return best
+
+
+
